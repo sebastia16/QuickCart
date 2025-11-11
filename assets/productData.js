@@ -81,7 +81,7 @@ export const products = [
     price: "$1,999.99",
     imgSrc: assets.asus_laptop_image,
   },
-  {
+  /* {
     id: 11,
     name: "Apple Earphones",
     description: "Noise-cancellation, 40-hour battery",
@@ -160,5 +160,5 @@ export const products = [
     rating: 4.5,
     price: "$1,999.99",
     imgSrc: assets.asus_laptop_image,
-  },
+  }, */
 ];
