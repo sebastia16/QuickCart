@@ -1,22 +1,15 @@
 import { serve } from "inngest/next";
-import {
-  inngest,
-  syncUserCreation,
-  syncUserUpdation,
-  syncUserDeletion,
-} from "@/config/inngest";
+import { inngest, syncUserCreation, syncUserDeletion, syncUserUpdation } from "@/config/inngest";
 
+// 🔹 Log de control
 console.log("🔹 Cargando funciones Inngest:", {
   creation: !!syncUserCreation,
   updation: !!syncUserUpdation,
-  deletion: !!syncUserDeletion,
+  deletion: !!syncUserDeletion
 });
 
-export const { GET, POST, PUT } = serve({
-  client: inngest,
-  functions: [
-    syncUserCreation,
-    syncUserUpdation,
-    syncUserDeletion,
-  ].filter(Boolean), // 🔸 filtra undefined
+// ✅ Nueva sintaxis correcta de Inngest
+export const { GET, POST } = serve({
+  inngest, // antes era "client", ahora debe ser "inngest"
+  functions: [syncUserCreation, syncUserUpdation, syncUserDeletion],
 });
