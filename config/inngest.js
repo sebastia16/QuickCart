@@ -1,55 +1,31 @@
 import { Inngest } from "inngest";
-import connectDB from "./db";
-import User from "@/models/user";
 
-// Crear cliente Inngest
 export const inngest = new Inngest({ name: "grupovega-next" });
 
-/* 🔹 CREAR USUARIO */
+// ✅ Define tus funciones antes de exportarlas
 export const syncUserCreation = inngest.createFunction(
-  { id: "sync-user-from-clerk" },
-  { event: "clerk/user.created" },
-  async ({ event }) => {
-    const { id, first_name, last_name, email_addresses, image_url } = event.data;
-    const userData = {
-      _id: id,
-      email: email_addresses?.[0]?.email_address,
-      name: `${first_name || ""} ${last_name || ""}`.trim(),
-      imageUrl: image_url,
-    };
-
-    await connectDB();
-    await User.create(userData);
-    return { message: "User created", user: userData };
+  { id: "user.creation" },
+  { event: "user/created" },
+  async ({ event, step }) => {
+    console.log("Usuario creado:", event.data);
+    return { status: "ok" };
   }
 );
 
-/* 🔹 ACTUALIZAR USUARIO */
 export const syncUserUpdation = inngest.createFunction(
-  { id: "update-user-from-clerk" },
-  { event: "clerk/user.updated" },
-  async ({ event }) => {
-    const { id, first_name, last_name, email_addresses, image_url } = event.data;
-    const userData = {
-      email: email_addresses?.[0]?.email_address,
-      name: `${first_name || ""} ${last_name || ""}`.trim(),
-      imageUrl: image_url,
-    };
-
-    await connectDB();
-    await User.findByIdAndUpdate(id, userData);
-    return { message: "User updated", user: userData };
+  { id: "user.updation" },
+  { event: "user/updated" },
+  async ({ event, step }) => {
+    console.log("Usuario actualizado:", event.data);
+    return { status: "ok" };
   }
 );
 
-/* 🔹 ELIMINAR USUARIO */
 export const syncUserDeletion = inngest.createFunction(
-  { id: "delete-user-from-clerk" },
-  { event: "clerk/user.deleted" },
-  async ({ event }) => {
-    const { id } = event.data;
-    await connectDB();
-    await User.findByIdAndDelete(id);
-    return { message: "User deleted", id };
+  { id: "user.deletion" },
+  { event: "user/deleted" },
+  async ({ event, step }) => {
+    console.log("Usuario eliminado:", event.data);
+    return { status: "ok" };
   }
 );
