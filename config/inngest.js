@@ -3,7 +3,7 @@ import connectDB from "./db";
 import User from "@/models/user";
 
 // Crear cliente Inngest
-export const inngest = new Inngest({ id: "grupovega-next" });
+export const inngest = new Inngest({ name: "grupovega-next" });
 
 /* 🔹 CREAR USUARIO */
 export const syncUserCreation = inngest.createFunction(
