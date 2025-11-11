@@ -8,7 +8,7 @@ export const inngest = new Inngest({ name: "grupovega-next" });
 //ingest function to save user data to database
 export const syncUserCreation = inngest.createFunction(
     {
-        id: 'sync-user-from-clerck'
+        id: 'sync-user-from-clerk'
     },
     {event: 'clerk/user.created'},
     async ({event}) => {
@@ -24,10 +24,10 @@ export const syncUserCreation = inngest.createFunction(
     }
 )
 
-//inggest Function to update user data in database
+//inngest Function to update user data in database
 export const syncUserUpdation = inngest.createFunction(
     {
-        id: 'update user-from-clerck'
+        id: 'update user-from-clerk'
     },
     {event: 'clerk/user.updated'},
     async ({event}) => {
@@ -46,7 +46,7 @@ export const syncUserUpdation = inngest.createFunction(
 //ingest Function to delete user data from database
 export const syncUserDeletion = inngest.createFunction(
     {
-        id: 'delete-user-from-clerck'
+        id: 'delete-user-from-clerk'
     },
     {event: 'clerk/user.deleted'},
     async ({event}) => {
